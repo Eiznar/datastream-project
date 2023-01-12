@@ -93,7 +93,11 @@ X_new, y_new = new_clean["statement"], new_clean["label"]
 X_new = X_new.map(lambda x: clean_text(x))
 y_new = label_encoder.fit_transform(y_new)
 
-svm_pred_new = pipeline.predict(X_new) # test set 
+print(X_new.head())
+
+svm_pred_new = pipeline.predict(X_new) # test set
+svm_pred_proba = pipeline.predict_proba(X_new) 
+print(svm_pred_proba[:10])
 
 # New data
 # display results
@@ -104,3 +108,14 @@ plot_confusion_matrix(confusion_matrix(y_new,svm_pred_new),target_names=['fake',
 pkl_filename = "models/logreg_model.pkl"
 with open(pkl_filename, 'wb') as file:
     pickle.dump(pipeline, file)
+
+with open(pkl_filename, 'rb') as file:
+    new_pipeline = pickle.load(file)
+
+svm_pred_new = new_pipeline.predict(X_new) # test set 
+
+# New data
+# display results
+print_metrics(svm_pred_new, y_new)
+plot_confusion_matrix(confusion_matrix(y_new,svm_pred_new),target_names=['fake','real'], normalize = False, \
+                      title = 'Confusion matix of SVM on new data')

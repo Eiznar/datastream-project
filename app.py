@@ -4,6 +4,7 @@ import pandas as pd
 from flask import jsonify
 from functions import clean_text
 import json
+import numpy as np
 
 pkl_filename = "models/logreg_model.pkl"
 with open(pkl_filename, 'rb') as file:
@@ -16,9 +17,11 @@ app = flask.Flask(__name__)
 def predict():
     # json in the form {'tweet': str}
     tweet = flask.request.args.get('tweet')
+    print(tweet)
     tweet = clean_text(tweet)
-    x_df = pd.DataFrame.from_dict({"tweet": [tweet]})
-    output = model.predict_proba(x_df)
+    x_ = pd.Series(np.array([tweet]))
+    output = model.predict_proba(x_)
+    print(output)
     fake = float(output[0][0])
     real = float(output[0][1])
     if fake > real:

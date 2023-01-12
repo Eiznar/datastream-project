@@ -92,6 +92,7 @@ X_new, y_new = new_clean["statement"], new_clean["label"]
 X_new = X_new.map(lambda x: clean_text(x))
 y_new = label_encoder.fit_transform(y_new)
 
+
 svm_pred_new = svm_pipeline.predict(X_new) # test set 
 
 # New data

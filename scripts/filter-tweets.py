@@ -3,6 +3,10 @@ from kafka import KafkaConsumer, KafkaProducer
 import json
 import re
 import requests
+from matplotlib import pyplot as plt
+from matplotlib import animation
+import datetime as dt
+import time
 
 def cleanTweet(tweet: str) -> str:
     tweet = re.sub(r'http\S+', '', str(tweet))
@@ -25,6 +29,23 @@ def cleanTweet(tweet: str) -> str:
 
     return tweet
 
+class RegrMagic(object):
+    """Mock for function Regr_magic()
+    """
+    def __init__(self):
+        self.x = 0
+    def __call__(self):
+        time.sleep(1)
+        #self.x += 1
+        return 1, 1
+
+regr_magic = RegrMagic()
+
+def frames():
+    while True:
+        yield regr_magic()
+
+
 topic_name = 'raw-tweets'
 
 consumer = KafkaConsumer(topic_name, bootstrap_servers=["localhost:9092"],
@@ -33,20 +54,27 @@ consumer = KafkaConsumer(topic_name, bootstrap_servers=["localhost:9092"],
     group_id='group-1')
 producer = KafkaProducer(bootstrap_servers="localhost:9092")
 
-URL = "http://172.17.194.63:5000"
+URL = "http://172.17.196.102:5000"
 
-for message in consumer:
-    #print(message.value)
-    tweet = json.loads(message.value)
 
-    # defining a params dict for the parameters to be sent to the API
-    PARAMS = {'tweet' : cleanTweet(str(tweet["text"]))}
-    print(PARAMS)
+with open("archive.csv", "w+", encoding="utf8") as f :
+    for message in consumer:
+        #print(message.value)
+        tweet = json.loads(message.value)
 
-    # sending get request and saving the response as response object
-    r = requests.get(url = URL, params = PARAMS)
+        # defining a params dict for the parameters to be sent to the API
+        PARAMS = {'tweet' : cleanTweet(str(tweet["text"]))}
+        print(PARAMS)
 
-    data = r.json() # {'fake': fake, 'real': real, "prediction": pred}
-    #print(cleanTweet(str(tweet["text"])))
-    print(data)
+        # sending get request and saving the response as response object
+        r = requests.get(url = URL, params = PARAMS)
+
+        data = r.json() # {'fake': fake, 'real': real, "prediction": pred}
+        #print(cleanTweet(str(tweet["text"])))
+        print(data)
+
+        f.write(str(PARAMS) + ";" + str(data['fake']) + ";" + str(data['real']) + ";" + str(data['prediction']) + "\n")
+
+
+
 

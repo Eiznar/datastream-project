@@ -1,3 +1,10 @@
+
+"""
+Most of the contents of this file was written by the owners of the new tweet fake news dataset, who added more recent data to the already existing COVID-19 Fake News dataset.
+Their github:
+https://github.com/smkerr/COVID-fake-news-detection
+"""
+
 ###############################################################################
 # import dependencies
 import re

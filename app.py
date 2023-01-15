@@ -2,7 +2,7 @@ import flask
 import pickle
 import pandas as pd
 from flask import jsonify
-from functions import clean_text
+from utils import clean_text
 import json
 import numpy as np
 

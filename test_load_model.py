@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pickle
 
-from functions import clean_text, print_metrics, plot_confusion_matrix
+from utils import clean_text, print_metrics, plot_confusion_matrix
 
 from sklearn import preprocessing
 from sklearn.ensemble import AdaBoostClassifier, VotingClassifier
@@ -31,10 +31,14 @@ with open(pkl_filename, 'rb') as file:
 svm_pred_new = new_pipeline.predict(X_new) # test set 
 svm_pred_proba = new_pipeline.predict_proba(X_new) 
 
+print("First entries")
 print(X_new[:1])
+print(y_new[:1]) # It is real news
+print("----------")
 string_ = clean_text("Two years into the pandemic, we ask “what will it take to end its acute phase?” Today, we stress the urgency of equitable access to life-saving #COVID19 tools.")
 x_ = pd.Series(np.array([string_]))
 print(x_)
+print("Prediction for x_df: ", new_pipeline.predict(x_))
 print("probas of x_df: ", new_pipeline.predict_proba(x_))
 
 # New data

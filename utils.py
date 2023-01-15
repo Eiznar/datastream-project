@@ -6,8 +6,13 @@ from nltk.corpus import stopwords
 nltk.download('stopwords')
 from nltk.stem.wordnet import WordNetLemmatizer
 nltk.download('wordnet')
-stoplist = set(stopwords.words('english')) # create stop word list
-lemmatizer = WordNetLemmatizer() # initializer lemmatizer 
+
+import matplotlib.pyplot as plt
+import numpy as np
+import itertools
+
+stopwords = set(stopwords.words('english'))
+lemmatizer = WordNetLemmatizer()
 
 # create clean_text() function
 def clean_text(string):
@@ -18,7 +23,7 @@ def clean_text(string):
     text = text.replace('&amp',' ') # replace &amp with ' '
     text = re.sub(r"[^0-9a-zA-Z]+",' ',text) # remove non-alphanumeric characters
     text = text.split() # splits into a list of words
-    text = [w for w in text if not w in stoplist] # remove stop words
+    text = [w for w in text if not w in stopwords] # remove stop words
     text = [lemmatizer.lemmatize(w) for w in text] # lemmatization
     text = " ".join(text) # joins the list of words
     return text
@@ -40,9 +45,7 @@ def print_metrics(pred,true):
 
 ###############################################################################
 ## import depedencies
-import matplotlib.pyplot as plt
-import numpy as np
-import itertools
+
 
 # define plot_confusion_matrix() function to display results
 def plot_confusion_matrix(cm,

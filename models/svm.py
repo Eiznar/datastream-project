@@ -1,5 +1,6 @@
-import numpy as np
 import pandas as pd
+import pickle
+
 
 from utils import clean_text, print_metrics, plot_confusion_matrix
 
@@ -13,7 +14,7 @@ from sklearn.svm import SVC
 # import nltk
 # nltk.download('omw-1.4')
 
-PATH = "data/original-data/"
+PATH = "../data/original-data/"
 
 train = pd.read_csv(PATH + 'Constraint_Train.csv', header=0)
 # drop posts that are too long and the duplicates
@@ -81,7 +82,7 @@ plot_confusion_matrix(confusion_matrix(y_test, pred_test), target_names=['fake',
 
 
 ####################### Testing on unknown data ##############################
-PATH = "data/new-data/"
+PATH = "../data/new-data/"
 
 new = pd.read_csv(PATH + 'new_data.csv', header=0)
 # drop posts longer than 280 characters & drop duplicates
@@ -104,6 +105,6 @@ plot_confusion_matrix(confusion_matrix(y_new, pred_new), target_names=['fake', '
 
 # Save model
 
-pkl_filename = "models/svc.pkl"
+pkl_filename = "svc_model.pkl"
 with open(pkl_filename, 'wb') as file:
     pickle.dump(pipeline, file)

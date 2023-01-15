@@ -38,4 +38,3 @@ model = BERT_Fake(BERT)
 optimizer = optim.Adam(model.parameters(), lr=1e-5)
 criterion = nn.BCELoss()
 epochs = 2
-

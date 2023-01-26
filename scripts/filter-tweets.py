@@ -54,8 +54,8 @@ consumer = KafkaConsumer(topic_name, bootstrap_servers=["localhost:9092"],
     group_id='group-1')
 producer = KafkaProducer(bootstrap_servers="localhost:9092")
 
-URL = "http://172.17.196.102:5000"
-
+URL = "http://172.24.251.13:5000"
+#"http://127.0.0.1:8000"
 
 with open("archive.csv", "w+", encoding="utf8") as f :
     for message in consumer:

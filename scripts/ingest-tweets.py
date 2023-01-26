@@ -2,9 +2,9 @@ import tweepy
 from kafka import KafkaProducer
 import json 
 import time
-import token_log
+import config
 
-client = tweepy.Client(bearer_token=token_log.api_key)
+client = tweepy.Client(bearer_token=config.api_key)
 
 # Replace with your own search query
 query = 'covid -is:retweet'

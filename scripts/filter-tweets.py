@@ -8,6 +8,12 @@ from matplotlib import animation
 import datetime as dt
 import time
 
+from configparser import ConfigParser
+
+configur = ConfigParser()
+configur.read('./config.ini')
+model_port = configur.getint('Application','port')
+
 def cleanTweet(tweet: str) -> str:
     tweet = re.sub(r'http\S+', '', str(tweet))
     tweet = re.sub(r'bit.ly/\S+', '', str(tweet))
@@ -54,7 +60,8 @@ consumer = KafkaConsumer(topic_name, bootstrap_servers=["localhost:9092"],
     group_id='group-1')
 producer = KafkaProducer(bootstrap_servers="localhost:9092")
 
-URL = "http://172.24.251.13:5000"
+# URL = "http://172.24.251.13:5000"
+URL = "localhost:"+str(model_port)
 #"http://127.0.0.1:8000"
 
 with open("archive.csv", "w+", encoding="utf8") as f :

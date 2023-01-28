@@ -6,6 +6,12 @@ from models.utils import clean_text
 import json
 import numpy as np
 
+from configparser import ConfigParser
+
+configur = ConfigParser()
+configur.read('./config.ini')
+port = configur.getint('Application','port')
+
 pkl_filename = "models/logreg_model.pkl"
 with open(pkl_filename, 'rb') as file:
     model = pickle.load(file)
@@ -33,4 +39,4 @@ def predict():
     return jsonify({'fake': fake, 'real': real, "prediction": pred})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(port=port, debug=True)

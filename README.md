@@ -3,12 +3,12 @@
 This repository contains the work of the short Twitter project for the Data Stream Processing Course in the Master 2 Data Science (2022-2023).
 
 # How to train a classification model :
+    (Training is not mandatory since we already trained one model ourselves)
     - Download the training data from the repository of [COVID Fake News Detection](https://github.com/smkerr/COVID-fake-news-detection) by Hannah Schweren, Marco Schildt and Steve Kerr. The data should be in a `data` folder at the most parent directory in this repository.
     - Run either `logreg.py` (Logistic Regression) or `svm.py` (SVM Classifier) in order to train a classifier on the training data.
     - A model is saved as a `.pkl` file that can be loaded while running the application file.
 
-# How to run :
-
+# How to run predictions :
     - Start Zookeeper and Kafka
     - Complete the config.ini with your bearer_token in 'api_key' section. Port is set automatically.
     - Launch the Flask app by running the `app.py`file.

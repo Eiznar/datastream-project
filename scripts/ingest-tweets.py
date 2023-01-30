@@ -3,11 +3,11 @@ from kafka import KafkaProducer
 import json 
 import time
 
-from configparser import ConfigParser
+from configparser import ConfigParser, RawConfigParser
 
-configur = ConfigParser()
+configur = RawConfigParser()
 configur.read('../config.ini')
-api_key = configur.getint('TwitterAPI','api_key')
+api_key = configur.get('TwitterAPI','api_key').replace("'","") 
 
 # client = tweepy.Client(bearer_token=config.api_key)
 client = tweepy.Client(bearer_token=api_key)

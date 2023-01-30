@@ -3,16 +3,14 @@ from kafka import KafkaConsumer, KafkaProducer
 import json
 import re
 import requests
-from matplotlib import pyplot as plt
-from matplotlib import animation
-import datetime as dt
+
 import time
 
-from configparser import ConfigParser
+from configparser import ConfigParser, RawConfigParser
 
-configur = ConfigParser()
-configur.read('./config.ini')
-model_port = configur.getint('Application','port')
+configur = RawConfigParser()
+configur.read('../config.ini')
+model_port = configur.get('Application','PORT').replace("'","") 
 
 def cleanTweet(tweet: str) -> str:
     tweet = re.sub(r'http\S+', '', str(tweet))
@@ -61,7 +59,7 @@ consumer = KafkaConsumer(topic_name, bootstrap_servers=["localhost:9092"],
 producer = KafkaProducer(bootstrap_servers="localhost:9092")
 
 # URL = "http://172.24.251.13:5000"
-URL = "localhost:"+str(model_port)
+URL = " http://127.0.0.1:"+str(model_port)
 #"http://127.0.0.1:8000"
 
 with open("archive.csv", "w+", encoding="utf8") as f :

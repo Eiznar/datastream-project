@@ -6,9 +6,9 @@ from models.utils import clean_text
 import json
 import numpy as np
 
-from configparser import ConfigParser
+from configparser import ConfigParser, RawConfigParser
 
-configur = ConfigParser()
+configur = RawConfigParser()
 configur.read('./config.ini')
 port = configur.getint('Application','port')
 

@@ -4,11 +4,12 @@ This repository contains the work of the short Twitter project for the Data Stre
 
 # How to run :
 
-    - Download data folder from https://github.com/smkerr/COVID-fake-news-detection and place it in root directory.
     - Start Zookeeper and Kafka
-    - Run ingest-tweets.py to start ingesting tweets
-    - Run filter-tweets.py to read consumer, send http request and store every prediction in a .csv file
-    - Run histogram.py to start a real time histogram with prediction score
+    - Complete the config.ini with your bearer_token in 'api_key' section. Port is set automatically.
+    - Launch the Flask app by running the `app.py`file.
+    - Then run `ingest-tweets.py` to start ingesting tweets
+    - Then run `filter-tweets.py` to read consumer, send http request and store every prediction in a .csv file
+    - Finally run `histogram.py` to start a real time histogram with prediction score
 
 # Predictive models
 
